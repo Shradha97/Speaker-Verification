@@ -585,7 +585,7 @@ def get_random_batch(session, speaker_num, utter_num, path, shuffle = True, utte
 
 
 # Module to train the model
-def train(audio_dir, data_path):
+def train(audio_dir, data_path, validation_data_path):
   tf.reset_default_graph()   # Reset graph
   total_dev_speakers = len(os.listdir(os.path.join(os.path.join(audio_dir, data_path), "Speaker_test")))	# Gives number of target speakers
   
@@ -604,11 +604,21 @@ def train(audio_dir, data_path):
   print("The Model Summary")
   model.summary()
 
+  prediction = model.get_layer("dense_3").output
   # Instatiating a loss function
-  loss_fn = tf.reduce_mean(categorical_crossentropy(labels, model.get_layer("dense_3").output))
+  loss_fn = tf.reduce_mean(categorical_crossentropy(labels, prediction))
 
   # Using Adam optimizer
   train_step = tf.train.AdamOptimizer(lr_tensor).minimize(loss_fn)
+
+  # Defining metrics for accuracy
+  tf_metric, tf_metric_update = tf.metrics.accuracy(tf.argmax(labels, 1), tf.argmax(prediction, 1), name="my_metric")
+
+  # Isolate the variables stored behind the scenes by the metric operation
+  running_vars = tf.get_collection(tf.GraphKeys.LOCAL_VARIABLES, scope="my_metric")
+
+  # Define initializer to initialize/reset running variables
+  running_vars_initializer = tf.variables_initializer(var_list=running_vars)
 
   # Record loss
   loss_summary = tf.summary.scalar("Loss", loss_fn)
@@ -619,7 +629,7 @@ def train(audio_dir, data_path):
 
   # Training session
   with tf.Session() as sess:
-    sess.run(tf.global_variables_initializer())   # Initializing all variables
+    sess.run(tf.global_variables_initializer())   # Initializing all variables    
 
     os.makedirs(os.path.join(audio_dir, "Check_Point"), exist_ok = True)   # Folder to save model
     os.makedirs(os.path.join(audio_dir, "Logs"), exist_ok = True)    # Folder to save log
@@ -631,9 +641,15 @@ def train(audio_dir, data_path):
     loss_acc = 0    # to keep a count of the running average of the loss
     global epochs
     for epoch in range(epochs):
+      session.run(running_vars_initializer)         # initialize/reset the running variables for accuracy after each epoch
+
       for it in range(int(total_dev_speakers*50/(2*M))):
         input_batch, spk_label = get_random_batch('train', 2, M, os.path.join(audio_dir, data_path)) # DEFINING N=2 AND M=5!!!!
         _, loss_cur, summary = sess.run([train_step, loss_fn, merged], feed_dict = {'conv2d_input:0': input_batch, labels: spk_label, lr_tensor: lr*lr_factor})
+
+        # Update the running variables on new batch of samples to obtain the accuracy
+        #feed_dict={tf_label: labels[i], tf_prediction: predictions[i]}
+        sess.run(tf_metric_update, feed_dict={labels: spk_label})
 
         loss_acc +=loss_cur   # accumulated loss for each of the 10 iterations
 
@@ -643,8 +659,15 @@ def train(audio_dir, data_path):
         iteration = iteration + 1
         print("Loss is: ", loss_cur/100)
 
+      # Obtaining the accuracy after each epoch
+      accuracy = sess.run(tf_metric)
+
+      # Doing the validation
+      input_batch, spk_label = get_random_batch('train', 2, M, os.path.join(audio_dir, validation_data_path))
+      validation_loss = sess.run()
+
       # Recording loss at the end of the epoch
-      print("Epoch : %d        Loss: %.4f" % (epoch,loss_acc/100))
+      print("Epoch : %d        Loss: %.4f        Train accuracy: %.4f" % (epoch,loss_acc/100, accuracy))
       loss_acc = 0    # Resetting accumulated loss
 
       if (epoch + 1)%lr_decay_step == 0:
@@ -1016,7 +1039,8 @@ if __name__ == "__main__":
   print("TRAINING SESSION...")
   # Preprocesing the data to obtain mfcc or spectrogram for input to the network
   #preprocess_data(audio_dir, dev_set_path, train_data_path, 'train')
-  train(audio_dir, train_data_path)
+  preprocess_data(audio_dir, eval_set_path, eval_data_path, 'evaluate')
+  train(audio_dir, train_data_path, eval_data_path)
 
   # Enrolling the speakers
   #print("ENROLLMENT SESSION...")

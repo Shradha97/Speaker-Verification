@@ -107,7 +107,7 @@ def create_model(out_speakers = 2):
   model.add(Dense(units = 256))
   model.add(BatchNormalization())
   model.add(ReLU())
-  model.add(Dropout(0.3))
+  model.add(Dropout(0.2))
 
   # FC 3
   model.add(Dense(units = 256))
@@ -160,7 +160,7 @@ def get_random_batch(session, speaker_num, utter_num, path, shuffle = True, utte
       get_pickle(path, "One_hot.pickle")
     else:
       true_spk_label = []
-    path = os.path.join(path, "Speaker_test")
+    path = os.path.join(path, "Speakers")
     spk_list = os.listdir(path)
 
   np_file_list = [f for f in spk_list if not f.startswith('.')] # To remove the unnecessary hidden files in the accessed directories
@@ -291,12 +291,14 @@ if __name__ == "__main__":
     #DO
 
   # Training the model
-  print("TRAINING SESSION...")
+  
+  #print("TRAINING SESSION...")
   #Preprocesing the data to obtain mfcc or spectrogram for input to the network
-  ppr.preprocess_data(audio_dir, dev_set_path, train_data_path, 'train')
+  #ppr.preprocess_data(audio_dir, dev_set_path, train_data_path, 'train')
+  #ppr.preprocess_data(audio_dir, eval_set_path, eval_data_path, 'train')
   #train(audio_dir, train_data_path)
       
 
   # Enrolling the speakers
-  #print("Enrollment session")
-  #preprocess_data(audio_dir, enroll_set_path, enroll_data_path, 'enroll')
+  #print("ENROLLMENT SESSION...")
+  ppr.preprocess_data(audio_dir, enroll_set_path, enroll_data_path, 'enroll')
