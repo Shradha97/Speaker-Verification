@@ -1,0 +1,20 @@
+<html>
+<head>
+	<title>Speaker Verification</title>
+</head>
+	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+	<script>
+		async function run(){
+			const MODEL_URL = 'http://127.0.0.1:8887/model.json';
+			const model = await tf.loadLayersModel(MODEL_URL);
+			console.log(model.summary());
+			const input = tf.zeros([1, 48, 48, 1]);
+			const result = model.apply(input)
+			console.log(result.shape)
+			alert(result);
+		}
+		run();
+	</script>
+	<body>
+	</body>
+</html>
