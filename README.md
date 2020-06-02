@@ -2,6 +2,8 @@
 
 The "test" folder has the integrated pipeline along with the small data subset. Run the scripts present in that folder.
 
+Train the model first, then do the enrollment. After that you can do evaluation or the inference.
+
 1. To train the model, write the command "python3 main.py --session train". First train the model to get the required model saved in the folder "Saved_model". That would be loaded for the later purposes.
 
 2. To enroll the speakers, write the command "python3 main.py --session enroll".
@@ -21,4 +23,12 @@ The "test" folder has the integrated pipeline along with the small data subset. 
 9. The output produced by the "enroll" function in the file "verification.py" is stored as a pickle file inside the folder "enrolled_data" which would be created after the script is run.
 
 10. The output produced by the "infer" function in the file "verification.py" is a similarity score with the verdict of verified or not. This function takes in the "embeddings" stored in the pickle file stored in the "enrolled_data" folder and the ".npy" files present in the "test_data" folder created after running the script, which contains the preprocessed audio of the speaker that needs to be tested for inference.
+
+
+## Requirements
+
+1. tf-1.15
+2. Librosa
+3. Tensorflowjs
+4. pyaudio
 
