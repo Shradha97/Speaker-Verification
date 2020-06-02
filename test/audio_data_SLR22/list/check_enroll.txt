@@ -1,0 +1,3 @@
+enroll/F101_000.wav
+enroll/F102_000.wav
+enroll/F103_000.wav

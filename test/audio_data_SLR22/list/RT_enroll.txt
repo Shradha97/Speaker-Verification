@@ -1,0 +1,6 @@
+RT_enroll/Sai_0.wav
+RT_enroll/Sai_1.wav
+RT_enroll/Sai_2.wav
+RT_enroll/Sai_3.wav
+RT_enroll/Sai_4.wav
+RT_enroll/Sai_5.wav
