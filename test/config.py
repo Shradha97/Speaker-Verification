@@ -41,16 +41,17 @@ def sess(v):
 
 # Data Preprocess Arguments
 data_arg = parser.add_argument_group('Data')
+project_path = '.'
 #data_arg.add_argument('--noise_path', type=str, default='./noise', help="noise dataset directory")
-data_arg.add_argument('--audio_dir', type=str, default='/Users/apple/Desktop/test/audio_data_SLR22', help="Absolute dataset path")
-data_arg.add_argument('--list_path', type=str, default='/Users/apple/Desktop/test/audio_data_SLR22/list', help="Folder having information about paths to different data")
-data_arg.add_argument('--dev_set_path', type=str, default='/Users/apple/Desktop/test/audio_data_SLR22/list/check_train.txt', help="Text file containing train set relative paths")
-data_arg.add_argument('--val_set_path', type=str, default='/Users/apple/Desktop/test/audio_data_SLR22/list/check_val.txt', help="Text file containing validation set relative paths")
-data_arg.add_argument('--enroll_set_path', type=str, default='/Users/apple/Desktop/test/audio_data_SLR22/list/check_enroll.txt', help="Text file containing enrollment set relative paths")
-data_arg.add_argument('--RT_enroll_set_path', type=str, default='/Users/apple/Desktop/test/audio_data_SLR22/list/RT_enroll.txt', help="Text file containing enrollment set relative paths taken through microphone")
-data_arg.add_argument('--eval_set_path', type=str, default='/Users/apple/Desktop/test/audio_data_SLR22/list/check_eval.txt', help="Text file containing evaluation set relative paths")
-data_arg.add_argument('--test_set_path', type=str, default='/Users/apple/Desktop/test/audio_data_SLR22/list/check_test.txt', help="Text file containing inference set relative paths")
-data_arg.add_argument('--RT_infer_set_path', type=str, default='/Users/apple/Desktop/test/audio_data_SLR22/list/RT_infer.txt', help="Text file containing inference set relative paths taken through microphone")
+data_arg.add_argument('--audio_dir', type=str, default=f'{project_path}/audio_data_SLR22', help="Absolute dataset path")
+data_arg.add_argument('--list_path', type=str, default=f'{project_path}/audio_data_SLR22/list', help="Folder having information about paths to different data")
+data_arg.add_argument('--dev_set_path', type=str, default=f'{project_path}/audio_data_SLR22/list/check_train.txt', help="Text file containing train set relative paths")
+data_arg.add_argument('--val_set_path', type=str, default=f'{project_path}/audio_data_SLR22/list/check_val.txt', help="Text file containing validation set relative paths")
+data_arg.add_argument('--enroll_set_path', type=str, default=f'{project_path}/audio_data_SLR22/list/check_enroll.txt', help="Text file containing enrollment set relative paths")
+data_arg.add_argument('--RT_enroll_set_path', type=str, default=f'{project_path}/audio_data_SLR22/list/RT_enroll.txt', help="Text file containing enrollment set relative paths taken through microphone")
+data_arg.add_argument('--eval_set_path', type=str, default=f'{project_path}/audio_data_SLR22/list/check_eval.txt', help="Text file containing evaluation set relative paths")
+data_arg.add_argument('--test_set_path', type=str, default=f'{project_path}/audio_data_SLR22/list/check_test.txt', help="Text file containing inference set relative paths")
+data_arg.add_argument('--RT_infer_set_path', type=str, default=f'{project_path}/audio_data_SLR22/list/RT_infer.txt', help="Text file containing inference set relative paths taken through microphone")
 
 data_arg.add_argument('--train_data_path', type=str, default='train_data', help="Train dataset directory")
 data_arg.add_argument('--val_data_path', type=str, default='val_data', help="Validation dataset directory")

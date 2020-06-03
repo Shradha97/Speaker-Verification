@@ -19,8 +19,8 @@ from tensorflow.keras.layers import Input, Conv2D, Dense, Dropout, Flatten, ReLU
 from tensorflow.keras.layers import PReLU
 from tensorflow.python.keras.layers.normalization import BatchNormalization
 
-
-audio_dir = '/Users/apple/Desktop/test/audio_data_SLR22'
+project_dir = '.'
+audio_dir = f'{project_dir}/audio_data_SLR22'
 tfjs_dir = 'TF-js'
 #tflite_model_file = 'converted_model.tflite'
 

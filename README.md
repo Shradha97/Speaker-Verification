@@ -32,3 +32,22 @@ Train the model first, then do the enrollment. After that you can do evaluation 
 3. Tensorflowjs
 4. pyaudio
 
+```
+-- Activate virtual env
+source env/bin/activate
+
+-- Run api endpoint
+python api/api.py 
+
+-- Test by sending post request (with api running)
+curl -X POST -d "--string-encoded-wav-file--" http://127.0.0.1:5000/ 
+
+
+-- Instructions to setup fresh virtual env
+python3 -m venv env
+source env/bin/activate
+brew install portaudio # Before you install PyAudio
+pip install tensorflow==1.15 librosa PyAudio keras matplotlib numpy
+# tensorflowjs - specify version & add requirements.txt
+
+```

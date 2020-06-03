@@ -34,7 +34,7 @@ if __name__ == "__main__":
   # Enrolling the speakers
   elif cfg.session == 'enroll':
     print("ENROLLMENT SESSION...")
-    reply = str(input('Do you want to give input through microphone?(y/n): ')).lower().strip()
+    reply = enr.yes_or_no('Do you want to give input through microphone?(y/n): ')
     if(reply):
       enr.get_audio()
       ppr.preprocess_data(cfg.audio_dir, cfg.RT_enroll_set_path, cfg.RT_enroll_data_path, cfg.session)
@@ -46,7 +46,7 @@ if __name__ == "__main__":
   # Infering from the model
   else:
     print("INFERENCE SESSION...")
-    reply = str(input('Do you want to give input through microphone?(y/n): ')).lower().strip()
+    reply = enr.yes_or_no('Do you want to give input through microphone?(y/n): ')
     if(reply):
       inf.get_audio()
       ppr.preprocess_data(cfg.audio_dir, cfg.RT_infer_set_path, cfg.RT_infer_data_path, cfg.session)
