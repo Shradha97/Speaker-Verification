@@ -16,8 +16,8 @@ import numpy as np
 import librosa
 import pickle
 
-import preprocess as ppr
-from config import get_config
+import test.preprocess as ppr
+from test.config import get_config
 
 
 # For the training model

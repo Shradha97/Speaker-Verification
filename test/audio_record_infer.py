@@ -1,7 +1,7 @@
 import os
 import pyaudio
 import wave
-from config import get_config
+from test.config import get_config
 
 cfg = get_config()
 

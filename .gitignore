@@ -1,4 +1,4 @@
-test/__pycache__
+*__pycache__*
 test/audio_data_SLR22/Logs
 test/audio_data_SLR22/*_data
 test/audio_data_SLR22/Saved_Model

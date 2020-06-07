@@ -32,6 +32,20 @@ Train the model first, then do the enrollment. After that you can do evaluation 
 3. Tensorflowjs
 4. pyaudio
 
+
+## Run webapp
+```
+# Activate virtualenv if using
+# If not installed, pip install flask_socketio
+
+cd api
+python api.py
+Navigate to hosted site
+
+#Use chrome incognito mode; after making code changes restart window, so javascript cache is not cached chrome
+
+```
+
 ```
 -- Activate virtual env
 source env/bin/activate

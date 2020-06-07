@@ -6,8 +6,8 @@ import os
 from config import get_config
 import preprocess as ppr
 import verification as vs
-import audio_record_enroll as enr
-import audio_record_infer as inf
+import test.audio_record_enroll as enr
+import test.audio_record_infer as inf
 
 
 cfg = get_config()

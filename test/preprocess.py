@@ -13,8 +13,8 @@ import numpy as np
 import librosa
 import pickle
 
-from VAD import VoiceActivityDetector, remove_silence
-from config import get_config
+from test.VAD import VoiceActivityDetector, remove_silence
+from test.config import get_config
 
 
 """#sv_mfcc_utter = 505 # Max. utterance length of TI_SV(in ms) for mfcc
